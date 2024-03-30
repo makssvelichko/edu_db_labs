@@ -10,24 +10,41 @@
 >
 
 @startuml
+actor "Робітник" as Worker
+actor "Тімлід" as Teamlead
+actor "Адміністратор" as Administrator
+
+usecase "<b>SignUp</b>\nРеєстрація" as SignUp
+usecase "<b>SignIn</b>\nАвторизація" as SignIn
+usecase "<b>EditProfile</b>\nРедагувати профіль" as EditProfile
+usecase "<b>TaskManage</b>\nКерування завданнями проєкту" as TaskManage
+usecase "<b>TeamManage</b>\nКерувати командою" as TeamManage
+usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
+usecase "<b>UserSupport</b>\nПідтримка користувачів" as UserSupport
+usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
+
+
+
+
+Teamlead -u-> Worker
+Administrator -u-> Teamlead
+
+Worker -u-> SignUp
+Worker -u-> SignIn
+Worker -u-> EditProfile
+Worker -u-> TaskManage
+
+Teamlead -r-> TeamManage
+Teamlead -l-> ProjectManage
+
+Administrator --> UserSupport
+Administrator --> DataManage
+
 
 @enduml
 </center>
 
-## Клієнт
 
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
->
-
-@startuml
-
-@enduml
-
-</center>
 
 ## Тімлід
 
@@ -39,6 +56,38 @@
 >
 
 @startuml
+actor "Тімлід" as Teamlead
+
+usecase "<b>CreateTask</b>\nСтворити задачу" as CreateTask
+usecase "<b>EditTask</b>\nРедагувати задачу" as EditTask
+usecase "<b>DeleteTask</b>\nВидалити задачу" as DeleteTask
+
+usecase "<b>CreateProject</b>\nСтворити проект" as CreateProject
+usecase "<b>EditProject</b>\nРедагувати проект" as EditProject
+usecase "<b>AddMember</b>\nДодати користувача у проєкт" as AddMember
+usecase "<b>DeleteMember</b>\nВидалити користувача з проекту" as DeleteMember
+usecase "<b>DeleteProject</b>\nВидалити проект" as DeleteProject
+
+usecase "<b>TaskManage</b>\nКерування завданнями проєкту" as TaskManage
+
+usecase "<b>TeamManage</b>\nКерувати командою" as TeamManage
+usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
+
+
+
+Teamlead -r-> TeamManage
+AddMember .u.> TeamManage:extends
+DeleteMember .u.> TeamManage:extends
+
+Teamlead -l-> ProjectManage
+CreateProject .u.> ProjectManage:extends
+DeleteProject .u.> ProjectManage:extends
+EditProject .u.> ProjectManage:extends
+
+Teamlead -u-> TaskManage
+CreateTask .d.> TaskManage:extends
+EditTask .d.> TaskManage:extends
+DeleteTask .d.> TaskManage:extends
 
 @enduml
 
@@ -98,7 +147,7 @@
 
 
 
-| ID                | LogIn |
+| ID                | SignIn |
 |-------------------|---|
 | Назва             |  Авторизація |
 | Учасники          |  Користувач, Система |
