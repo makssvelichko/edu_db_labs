@@ -10,24 +10,41 @@
 >
 
 @startuml
+actor "Робітник" as Worker
+actor "Тімлід" as Teamlead
+actor "Адміністратор" as Administrator
+
+usecase "<b>SignUp</b>\nРеєстрація" as SignUp
+usecase "<b>SignIn</b>\nАвторизація" as SignIn
+usecase "<b>EditProfile</b>\nРедагувати профіль" as EditProfile
+usecase "<b>TaskManage</b>\nКерування завданнями проєкту" as TaskManage
+usecase "<b>TeamManage</b>\nКерувати командою" as TeamManage
+usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
+usecase "<b>UserSupport</b>\nПідтримка користувачів" as UserSupport
+usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
+
+
+
+
+Teamlead -u-> Worker
+Administrator -u-> Teamlead
+
+Worker -u-> SignUp
+Worker -u-> SignIn
+Worker -u-> EditProfile
+Worker -u-> TaskManage
+
+Teamlead -r-> TeamManage
+Teamlead -l-> ProjectManage
+
+Administrator --> UserSupport
+Administrator --> DataManage
+
 
 @enduml
 </center>
 
-## Клієнт
 
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
->
-
-@startuml
-
-@enduml
-
-</center>
 
 ## Тімлід
 
@@ -39,6 +56,38 @@
 >
 
 @startuml
+actor "Тімлід" as Teamlead
+
+usecase "<b>CreateTask</b>\nСтворити задачу" as CreateTask
+usecase "<b>EditTask</b>\nРедагувати задачу" as EditTask
+usecase "<b>DeleteTask</b>\nВидалити задачу" as DeleteTask
+
+usecase "<b>CreateProject</b>\nСтворити проект" as CreateProject
+usecase "<b>EditProject</b>\nРедагувати проект" as EditProject
+usecase "<b>AddMember</b>\nДодати користувача у проєкт" as AddMember
+usecase "<b>DeleteMember</b>\nВидалити користувача з проекту" as DeleteMember
+usecase "<b>DeleteProject</b>\nВидалити проект" as DeleteProject
+
+usecase "<b>TaskManage</b>\nКерування завданнями проєкту" as TaskManage
+
+usecase "<b>TeamManage</b>\nКерувати командою" as TeamManage
+usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
+
+
+
+Teamlead -r-> TeamManage
+AddMember .u.> TeamManage:extends
+DeleteMember .u.> TeamManage:extends
+
+Teamlead -l-> ProjectManage
+CreateProject .u.> ProjectManage:extends
+DeleteProject .u.> ProjectManage:extends
+EditProject .u.> ProjectManage:extends
+
+Teamlead -u-> TaskManage
+CreateTask .d.> TaskManage:extends
+EditTask .d.> TaskManage:extends
+DeleteTask .d.> TaskManage:extends
 
 @enduml
 
@@ -109,7 +158,7 @@ Admin -u-> UserSupport
 
 
 
-| ID                | LogIn |
+| ID                | SignIn |
 |-------------------|---|
 | Назва             |  Авторизація |
 | Учасники          |  Користувач, Система |
@@ -241,14 +290,14 @@ Admin -u-> UserSupport
 | Виключні ситуації |  <font color="Maroon">NullReferenceException - користувач не заповнив необхідні поля </br> AccessDeniedException - користувач не має відповідних прав </br> NameAlreadyExistsException - проект з такою назвою вже існує.</font> |
 | Основні сценарії  |  1. Користувач обирає проект та натискає кнопку "Змінити проект" (AccessDeniedException) </br> 2. Користувач змінює поля з даними проекту </br> 3. Користувач натискає кнопку "Змінити" (NullReferenceException, NameAlreadyExistsException) </br> 4. Система змінює проект з вказаними даними |
 
-<!-- | ID                | DeleteProject  |
+| ID                | DeleteProject  |
 |-------------------|---|
 | Назва             |  Видалити проект |
 | Учасники          |  Керівник проєкту, Система |
 | Передумови        | 1.Користувач авторизований </br> 2.Користувач має необхідні права  |
 | Результат         |  Проект видалено |
-| Виключні ситуації |  <font color="Maroon">AccessDeniedException - користувач не має відповідних прав. </br> NullReferenceException - користувач не заповнив необхідні поля. </br> InvalidTaskNameException - користувач ввів неправильне ім'я проекту|
-| Основні сценарії  |  1. Користувач обирає проект та натискає кнопку "Видалити" (AccessDeniedException) </br> 2. Користувач отримує діалогове вікно з запитом ввести назву проекту для підтвердження видалення (NullReferenceException) </br> 3. Користувач вводить назву та натискає кнопку "Підтвердити" (InvalidTaskNameException) </br> 5. Система видаляє проект та сповіщує про це колабораторів проекту | -->
+| Виключні ситуації |  AccessDeniedException - користувач не має відповідних прав. </br> NullReferenceException - користувач не заповнив необхідні поля. </br> InvalidTaskNameException - користувач ввів неправильне ім'я проекту|
+| Основні сценарії  |  1. Користувач обирає проект та натискає кнопку "Видалити" (AccessDeniedException) </br> 2. Користувач отримує діалогове вікно з запитом ввести назву проекту для підтвердження видалення (NullReferenceException) </br> 3. Користувач вводить назву та натискає кнопку "Підтвердити" (InvalidTaskNameException) </br> 5. Система видаляє проект та сповіщує про це колабораторів проекту |
 
 | ID                | AddMember  |
 |-------------------|---|
@@ -258,6 +307,7 @@ Admin -u-> UserSupport
 | Результат         |  Користувача додано у проєкт |
 | Виключні ситуації |  AccessDeniedException - відмовлено у доступі, користувач не має необхідних прав. </br> NullReferenceException - не заповнені обов'язкові поля. </br> NoUserFoundException - неможливо знайти користувача за вказаним ім'ям. </br> |
 | Основні сценарії  | 1. Керівник проєкту обирає потрібний проект та переходить до налаштувань (AccessDeniedException) </br> 2. Керівник натискає кнопку "Додати учасника проекту" (AccessDeniedException) </br> 3. Система відображає діалогове вікно для введення імені нового користувача (NullReferenceException, NoUserFoundException) </br> 4. Керівник вводить ім'я та підтверджує додавання. </br> 5. Система успішно додає нового користувача до проекту  |
+
 
 @startuml
 
@@ -282,6 +332,8 @@ Admin -u-> UserSupport
     stop;
 
 @enduml
+
+
 
 
 | ID                | DeleteMember  |
