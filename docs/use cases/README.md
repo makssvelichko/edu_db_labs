@@ -58,9 +58,7 @@ Administrator --> DataManage
 @startuml
 actor "Тімлід" as Teamlead
 
-usecase "<b>CreateTask</b>\nСтворити задачу" as CreateTask
-usecase "<b>EditTask</b>\nРедагувати задачу" as EditTask
-usecase "<b>DeleteTask</b>\nВидалити задачу" as DeleteTask
+
 
 usecase "<b>CreateProject</b>\nСтворити проект" as CreateProject
 usecase "<b>EditProject</b>\nРедагувати проект" as EditProject
@@ -68,26 +66,23 @@ usecase "<b>AddMember</b>\nДодати користувача у проєкт" 
 usecase "<b>DeleteMember</b>\nВидалити користувача з проекту" as DeleteMember
 usecase "<b>DeleteProject</b>\nВидалити проект" as DeleteProject
 
-usecase "<b>TaskManage</b>\nКерування завданнями проєкту" as TaskManage
+
 
 usecase "<b>TeamManage</b>\nКерувати командою" as TeamManage
 usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
 
 
 
-Teamlead -r-> TeamManage
+Teamlead -d-> TeamManage
 AddMember .u.> TeamManage:extends
 DeleteMember .u.> TeamManage:extends
 
-Teamlead -l-> ProjectManage
-CreateProject .u.> ProjectManage:extends
-DeleteProject .u.> ProjectManage:extends
-EditProject .u.> ProjectManage:extends
+Teamlead -u-> ProjectManage
+CreateProject .d.> ProjectManage:extends
+DeleteProject .d.> ProjectManage:extends
+EditProject .d.> ProjectManage:extends
 
-Teamlead -u-> TaskManage
-CreateTask .d.> TaskManage:extends
-EditTask .d.> TaskManage:extends
-DeleteTask .d.> TaskManage:extends
+
 
 @enduml
 
@@ -103,6 +98,35 @@ DeleteTask .d.> TaskManage:extends
 >
 
 @startuml
+actor "Робітник" as Collaborator
+
+usecase "<b>SignUp</b>\nРеєстрація" as SignUp
+usecase "<b>UserSignUp</b>\nЗареєструвати користувача" as UserSignUp
+usecase "<b>GoogleSignUp</b>\nЗареєструвати користувача за допомогою GoogleApi" as GoogleSignUp
+usecase "<b>LogIn</b>\nВхід" as LogIn
+usecase "<b>UserLogIn</b>\nАвторизація" as UserLogIn
+usecase "<b>GoogleLogIn</b>\nАвторизація за допомогою облікового запису Google" as GoogleSignIn
+usecase "<b>EditProfile</b>\nРедагувати профіль" as EditProfile
+usecase "<b>TaskManage</b>\nКерувати завданнями" as TaskManage
+
+usecase "<b>CreateTask</b>\nСтворити задачу" as CreateTask
+usecase "<b>EditTask</b>\nРедагувати задачу" as EditTask
+usecase "<b>DeleteTask</b>\nВидалити задачу" as DeleteTask
+
+Collaborator -l-> SignUp
+SignUp .u.> GoogleSignUp:extends
+SignUp .d.> UserSignUp:extends
+
+Collaborator -r-> LogIn
+LogIn .u.> GoogleSignIn:extends
+LogIn .d.> UserLogIn:extends
+
+Collaborator --d-> EditProfile
+Collaborator -u-> TaskManage
+
+TaskManage .u.> DeleteTask:extends
+TaskManage .u.> EditTask:extends
+TaskManage .u.> CreateTask:extends
 
 @enduml
 
@@ -118,20 +142,18 @@ DeleteTask .d.> TaskManage:extends
     padding: 1em;"
 >
 
-
 @startuml
+actor "Адміністратор" as Admin
+usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
+usecase "<b>BlockUser</b>\nЗаблокувати користувача у системі" as BlockUser
+usecase "<b>UnBlockUser</b>\nРозблокувати користувача в системі" as UnBlockUser
+usecase "<b>UserSupport</b>\nПідтримка користувачів" as UserSupport
 
-actor "Адміністратор системи" as Admin
-usecase "<b>BlockUser</b>\nЗаблокувати користувача" as BlockUser
-usecase "<b>UnBlockUser</b>\nРозблокувати користувача" as UnBlockUser
-usecase "<b>UserSupport</b>\nВирішити проблему користувача" as UserSupport
-
-Admin -d-> BlockUser
-Admin -d-> UnBlockUser
+Admin -d-> DataManage
 Admin -u-> UserSupport
-
+BlockUser .u.> DataManage:extends
+UnBlockUser .u.> DataManage:extends
 @enduml
-
 
 </center>
 
