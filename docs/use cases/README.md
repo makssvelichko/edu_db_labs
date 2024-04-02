@@ -420,12 +420,12 @@ UnBlockUser .u.> DataManage:extends
 
 | ID                | CreateProject  |
 |-------------------|---|
-| Назва             | Створити проєкт |
-| Учасники          |  Керівник проєкту,Адміністратор проєкту, Система |
+| Назва             | Створити проект |
+| Учасники          |  Керівник проєкту, Система |
 | Передумови        |  1. Авторизований користувач </br> 2. Користувач має відповідні права |
-| Результат         |  	Створено новий проєкт в системі |
-| Виключні ситуації | <font color="Maroon">NullReferenceException</font> - користувач не заповнив необхідні поля. </br> <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав. </br> <font color="Maroon">NameAlreadyExistsException</font> - проект з такою назвою вже існує. |
-| Основні сценарії  |  1. Користувач натискає кнопку "Створити проект" (AccessDeniedException). </br> 2. Користувач заповнює поля з даними проекту. </br> 3. Користувач натискає кнопку "Створити" (NullReferenceException, NameAlreadyExistsException) </br> 4. Система створює проект та показує його на головній сторінці тімліда та прив'язаних до нього користувачів |
+| Результат         |  	Створено новий проект |
+| Виключні ситуації | <font color="Maroon">NullReferenceException</font> - користувач не заповнив необхідні поля. </br> <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав. </br> <font color="Maroon">NameAlreadyExistsException</font> - проект з такою назвою вже існує.|
+| Основні сценарії  |  1. Користувач натискає кнопку "Створити проект" (AccessDeniedException). </br> 2. Користувач заповнює поля з даними проекту. </br> 3. Користувач натискає кнопку "Створити" (NullReferenceException, NameAlreadyExistsException) </br> 4. Система створює проект та показує його на головній сторінці керівника проєкту та прив'язаних до нього користувачів |
 
 @startuml
 
@@ -457,11 +457,12 @@ UnBlockUser .u.> DataManage:extends
 | ID                | EditProject  |
 |-------------------|---|
 | Назва             |  Редагувати проект |
-| Учасники          |  Керівник проєкту,Адміністратор проєкту, Система |
+| Учасники          |  Керівник проєкту, Система |
 | Передумови        |  1. Авторизований користувач </br> 2. Користувач має відповідні права|
 | Результат         |  Проект змінено |
-| Виключні ситуації |  <font color="Maroon">NullReferenceException</font> - користувач не заповнив необхідні поля </br> <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав </br> <font color="Maroon">ButtonNotPressed</font>  - користувач не натиснув кнопку для збереження змін. </br> <font color="Maroon">NameAlreadyExistsException</font>  - проект з такою назвою вже існує.|
+| Виключні ситуації |  <font color="Maroon">NullReferenceException</font> - користувач не заповнив необхідні поля </br> <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав </br> <font color="Maroon">NameAlreadyExistsException</font> - проект з такою назвою вже існує.|
 | Основні сценарії  |  1. Користувач обирає проект та натискає кнопку "Змінити проект" (AccessDeniedException) </br> 2. Користувач змінює поля з даними проекту </br> 3. Користувач натискає кнопку "Змінити" (NullReferenceException, NameAlreadyExistsException) </br> 4. Система змінює проект з вказаними даними |
+
 
 @startuml
 
@@ -478,8 +479,7 @@ UnBlockUser .u.> DataManage:extends
          команди зі списку співробітників, додає документацію/файли)
          <font color="red">NameAlreadyExistsException</font>;
     |Користувач|
-        : Натискає кнопку "Зберегти"
-          <font color="red">ButtonNotPressed</font>;
+        : Натискає кнопку "Зберегти";
     |Система|
         : Перевіряє корректність введених даних
          <font color="red">NullReferenceException</font>;
@@ -491,14 +491,13 @@ UnBlockUser .u.> DataManage:extends
 @enduml
 
 
-
 | ID                | DeleteProject  |
 |-------------------|---|
 | Назва             |  Видалити проект |
-| Учасники          |  Керівник проєкту,Адміністратор проєкту, Система |
+| Учасники          |  Керівник проєкту, Система |
 | Передумови        | 1.Користувач авторизований </br> 2.Користувач має необхідні права  |
 | Результат         |  Проект видалено |
-| Виключні ситуації |  <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав. </br> <font color="Maroon">ButtonNotPressed</font> - користувач не заповнив необхідні поля. </br> <font color="Maroon">InvalidTaskNameException</font> - користувач ввів неправильне ім'я проекту|
+| Виключні ситуації |  <font color="Maroon">AccessDeniedException</font> - користувач не має відповідних прав. </br> <font color="Maroon">NullReferenceException</font> - користувач не заповнив необхідні поля. </br> <font color="Maroon">InvalidTaskNameException</font> - користувач ввів неправильне ім'я проекту|
 | Основні сценарії  |  1. Користувач обирає проект та натискає кнопку "Видалити" (AccessDeniedException) </br> 2. Користувач отримує діалогове вікно з запитом ввести назву проекту для підтвердження видалення (NullReferenceException) </br> 3. Користувач вводить назву та натискає кнопку "Підтвердити" (InvalidTaskNameException) </br> 5. Система видаляє проект та сповіщує про це колабораторів проекту |
 
 @startuml
@@ -512,11 +511,12 @@ UnBlockUser .u.> DataManage:extends
          <font color="red">AccessDeniedException</font>;
         : Відкриває форму з інформацією про проєкт;    
     |Користувач|
-        : Обирає назву проєкту для підтвердження дій
+        : Вводить назву проєкту
          <font color="red">InvalidTaskNameException</font>;
+        : Відмічає проєкт для підтвердження дій
+         <font color="red">NullReferenceException</font>;
     |Користувач|
-        : Натискає кнопку "Видалити"
-         <font color="red">ButtonNotPressed</font>;
+        : Натискає кнопку "Видалити";
     |Система|
         : Видаляє проєкт та повідомляє менеджера про
          успішно виконану операцію;
