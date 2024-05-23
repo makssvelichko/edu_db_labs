@@ -77,10 +77,124 @@ Action "0,*" -u- "0,1" Task
 
 @enduml
 
+## ER-модель
+@startuml
+
+skinparam entity {
+    BackgroundColor #f7f711
+}
+
+top to bottom direction
+
+package UserAdministration {
+entity User {
+    id: INT
+    username: VARCHAR
+    emailAddress: VARCHAR
+    passcode: VARCHAR
+    photo: IMAGE
+    isBlocked: TINYINT
+}
+}
+
+package TaskManagement {
+entity Task {
+    id: INT
+    name: VARCHAR
+    details: VARCHAR
+    creationDate: DATETIME
+    deadline: DATETIME
+}
+
+entity Assignment {
+    id: INT
+    datetime: DATETIME
+}
+
+entity Task_note {
+    id: INT
+    subject: VARCHAR
+    text: VARCHAR
+    datetime: DATETIME
+}
+
+entity Label {
+}
+
+enum Tag {
+    id: INT
+    name: VARCHAR
+    description: VARCHAR
+}
+}
+
+package AccessControl {
+entity Collaborator {
+    id: INT
+}
+
+entity Permission {
+    id: INT
+    action: VARCHAR
+}
+
+entity Grant {
+}
+
+enum Role <<ENUMERATION>> #f7f711 {
+    id: INT
+    name: VARCHAR
+    description: VARCHAR
+}
+
+object developer
+object teamlead
+object administrator
+
+developer .u.> Role :instanceOf
+teamlead .u.> Role :instanceOf
+administrator .u.> Role :instanceOf
+}
+
+entity Action {
+    id: INT
+    timestamp: DATETIME
+}
+
+entity Team {
+    id: INT
+    name: VARCHAR
+    motto: VARCHAR
+}
+
+entity Project {
+    id: INT
+    title: VARCHAR
+    details: VARCHAR
+}
+
+Collaborator "0,*" -d- "1,1" User
+Team "1,1" -u- "0,*" Collaborator
+Team "0,*" -u- "1,1" Project
+Collaborator "0,*" -d- "1,1" Role
+Grant "0,*" -d- "1,1" Role
+Grant "0,*" -r- "1,1" Permission
+Assignment "0,*" -d- "1,1" Collaborator
+Assignment "0,*" -r- "1,1" Task
+Label "0,*" -l- "1,1" Task
+Label "0,*" -d- "1,1" Tag
+Task_note "0,*" -u- "1,1" Task
+Task_note "0,*" -d- "1,1" Collaborator :author
+
+Action "0,*" -u- "0,1" Collaborator
+Action "0,*" -r- "0,1" Task
+Action "0,*" -d- "0,1" Assignment
+
+@enduml
 
 
 
 
-- ER-модель
+
 - реляційна схема
 
