@@ -196,5 +196,6 @@ Action "0,*" -d- "0,1" Assignment
 
 
 
-- реляційна схема
+## Реляційна схема
 
+![реляційна схема](https://i.ibb.co/1d4XXsk/image.png)
