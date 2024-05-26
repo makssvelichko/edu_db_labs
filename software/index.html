@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Реалізація інформаційного та програмного забезпечення | Система управління проектами</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/edu_db_labs/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Лабораторні роботи з дисципліни &quot;Організація баз даних&quot;">
+    
+    <link rel="preload" href="/edu_db_labs/assets/css/0.styles.1e5a53e3.css" as="style"><link rel="preload" href="/edu_db_labs/assets/js/app.9d75754b.js" as="script"><link rel="preload" href="/edu_db_labs/assets/js/2.8c6916a2.js" as="script"><link rel="preload" href="/edu_db_labs/assets/js/1.cd4dfba0.js" as="script"><link rel="preload" href="/edu_db_labs/assets/js/37.dc7611b4.js" as="script"><link rel="prefetch" href="/edu_db_labs/assets/js/10.1eb4bd32.js"><link rel="prefetch" href="/edu_db_labs/assets/js/13.7fa8c35d.js"><link rel="prefetch" href="/edu_db_labs/assets/js/14.7f224a01.js"><link rel="prefetch" href="/edu_db_labs/assets/js/15.2b524aee.js"><link rel="prefetch" href="/edu_db_labs/assets/js/16.37786e2d.js"><link rel="prefetch" href="/edu_db_labs/assets/js/17.33e59074.js"><link rel="prefetch" href="/edu_db_labs/assets/js/18.5c5e592f.js"><link rel="prefetch" href="/edu_db_labs/assets/js/19.c3da0a1a.js"><link rel="prefetch" href="/edu_db_labs/assets/js/20.90331c42.js"><link rel="prefetch" href="/edu_db_labs/assets/js/21.13d1edbf.js"><link rel="prefetch" href="/edu_db_labs/assets/js/22.46dd4ed9.js"><link rel="prefetch" href="/edu_db_labs/assets/js/23.acc57584.js"><link rel="prefetch" href="/edu_db_labs/assets/js/24.7452c26a.js"><link rel="prefetch" href="/edu_db_labs/assets/js/25.47dbc9cd.js"><link rel="prefetch" href="/edu_db_labs/assets/js/26.8d0c0409.js"><link rel="prefetch" href="/edu_db_labs/assets/js/27.492ac5b5.js"><link rel="prefetch" href="/edu_db_labs/assets/js/28.14bf4c45.js"><link rel="prefetch" href="/edu_db_labs/assets/js/29.1db68035.js"><link rel="prefetch" href="/edu_db_labs/assets/js/3.b26e186f.js"><link rel="prefetch" href="/edu_db_labs/assets/js/30.ecadbffd.js"><link rel="prefetch" href="/edu_db_labs/assets/js/31.967c7867.js"><link rel="prefetch" href="/edu_db_labs/assets/js/32.a0555449.js"><link rel="prefetch" href="/edu_db_labs/assets/js/33.af1f12d2.js"><link rel="prefetch" href="/edu_db_labs/assets/js/34.bd74ccb2.js"><link rel="prefetch" href="/edu_db_labs/assets/js/35.1f6f3ece.js"><link rel="prefetch" href="/edu_db_labs/assets/js/36.c81eff7d.js"><link rel="prefetch" href="/edu_db_labs/assets/js/38.dd0142a1.js"><link rel="prefetch" href="/edu_db_labs/assets/js/39.7846baff.js"><link rel="prefetch" href="/edu_db_labs/assets/js/4.326bdc2c.js"><link rel="prefetch" href="/edu_db_labs/assets/js/40.b3ea2d00.js"><link rel="prefetch" href="/edu_db_labs/assets/js/41.c8373cb3.js"><link rel="prefetch" href="/edu_db_labs/assets/js/5.8a959ef4.js"><link rel="prefetch" href="/edu_db_labs/assets/js/6.a8552c6f.js"><link rel="prefetch" href="/edu_db_labs/assets/js/7.51faa1d7.js"><link rel="prefetch" href="/edu_db_labs/assets/js/8.8ec552ec.js"><link rel="prefetch" href="/edu_db_labs/assets/js/9.e91c43ed.js"><link rel="prefetch" href="/edu_db_labs/assets/js/vendors~docsearch.7eb60035.js">
+    <link rel="stylesheet" href="/edu_db_labs/assets/css/0.styles.1e5a53e3.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/edu_db_labs/" class="home-link router-link-active"><!----> <span class="site-name">Система управління проектами</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/edu_db_labs/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/Tomas997/edu_db_labs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/edu_db_labs/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/Tomas997/edu_db_labs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/edu_db_labs/intro/" class="sidebar-link">Вступ</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/edu_db_labs/requirements/" class="sidebar-heading clickable"><span>Розроблення загальних вимог до системи</span> <span class="arrow right"></span></a> <!----></section></li><li><a href="/edu_db_labs/use%20cases/" class="sidebar-link">Розроблення вимог до функціональности системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/use%20cases/#загальна-схема" class="sidebar-link">Загальна схема</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/use%20cases/#тімлід" class="sidebar-link">Тімлід</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/use%20cases/#робітник" class="sidebar-link">Робітник</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/use%20cases/#адміністратор" class="sidebar-link">Адміністратор</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/use%20cases/#сценаріі-використання" class="sidebar-link">Сценарії використання</a></li></ul></li><li><a href="/edu_db_labs/design/" class="sidebar-link">Проектування інформаційного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/design/#модель-бізнес-об-єктів" class="sidebar-link">Модель бізнес-об'єктів</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/design/#er-модель" class="sidebar-link">ER-модель</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/design/#реляціина-схема" class="sidebar-link">Реляційна схема</a></li></ul></li><li><a href="/edu_db_labs/software/" aria-current="page" class="active sidebar-link">Реалізація інформаційного та програмного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#sql-скрипт-для-створення-та-початкового-наповнення-бази-даних" class="sidebar-link">SQL-скрипт для створення та початкового наповнення бази даних</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#restfull-сервіс-для-управління-даними" class="sidebar-link">RESTfull сервіс для управління даними</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#створення-серверу" class="sidebar-link">Створення серверу</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#зв-язок-з-базою-даних" class="sidebar-link">Зв'язок з базою даних</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#контролер" class="sidebar-link">Контролер</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#сервіси" class="sidebar-link">Сервіси</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/software/#маршрутизація" class="sidebar-link">Маршрутизація</a></li></ul></li></ul></li><li><a href="/edu_db_labs/test/" class="sidebar-link">Тестування працездатності системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#метод-get" class="sidebar-link">Метод Get</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#get-all" class="sidebar-link">GET ALL</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#get-by-id" class="sidebar-link">GET BY ID</a></li></ul></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#метод-post" class="sidebar-link">Метод POST</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#надсилання-запиту" class="sidebar-link">Надсилання запиту</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#перевірка-запиту-через-метод-get" class="sidebar-link">Перевірка запиту через метод GET</a></li></ul></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#метод-patch" class="sidebar-link">Метод PATCH</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#надсилання-запиту-2" class="sidebar-link">Надсилання запиту</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#перевірка-запиту-через-метод-get-2" class="sidebar-link">Перевірка запиту через метод GET</a></li></ul></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#метод-delete" class="sidebar-link">Метод DELETE</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#надсилання-запиту-3" class="sidebar-link">Надсилання запиту</a></li><li class="sidebar-sub-header"><a href="/edu_db_labs/test/#перевірка-запиту-через-метод-get-3" class="sidebar-link">Перевірка запиту через метод GET</a></li></ul></li></ul></li><li><a href="/edu_db_labs/conclusion/" class="sidebar-link">Висновки</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="реалізація-інформаціиного-та-програмного-забезпечення"><a href="#реалізація-інформаціиного-та-програмного-забезпечення" class="header-anchor">#</a> Реалізація інформаційного та програмного забезпечення</h1> <h2 id="sql-скрипт-для-створення-та-початкового-наповнення-бази-даних"><a href="#sql-скрипт-для-створення-та-початкового-наповнення-бази-даних" class="header-anchor">#</a> SQL-скрипт для створення та початкового наповнення бази даних</h2> <div class="language- extra-class"><pre class="language-text"><code>
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema schema
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `schema` ;
+
+-- -----------------------------------------------------
+-- Schema schema
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `schema` DEFAULT CHARACTER SET utf8 ;
+USE `schema` ;
+
+-- -----------------------------------------------------
+-- Table `schema`.`Project`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Project` (
+  `idProject` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`idProject`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Team`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Team` (
+  `idTeam` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `description` VARCHAR(256) NULL,
+  `Project_id` INT NOT NULL,
+  PRIMARY KEY (`idTeam`),
+  INDEX `Project_id_idx` (`Project_id` ASC) VISIBLE,
+  CONSTRAINT `Project_id`
+    FOREIGN KEY (`Project_id`)
+    REFERENCES `schema`.`Project` (`idProject`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Role` (
+  `idRole` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`idRole`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`User`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`User` (
+  `idUser` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `photo` VARCHAR(256) NULL,
+  `is_banned` TINYINT NOT NULL,
+  PRIMARY KEY (`idUser`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Collaborators`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Collaborators` (
+  `idCollaborators` INT NOT NULL AUTO_INCREMENT,
+  `Role_id` INT NOT NULL,
+  `User_id` INT NOT NULL,
+  `Team_id` INT NOT NULL,
+  PRIMARY KEY (`idCollaborators`),
+  INDEX `Team_id_idx` (`Team_id` ASC) VISIBLE,
+  INDEX `Role_id_idx` (`Role_id` ASC) VISIBLE,
+  INDEX `User_id_idx` (`User_id` ASC) VISIBLE,
+  CONSTRAINT `Team_id`
+    FOREIGN KEY (`Team_id`)
+    REFERENCES `schema`.`Team` (`idTeam`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Role_id`
+    FOREIGN KEY (`Role_id`)
+    REFERENCES `schema`.`Role` (`idRole`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `User_id`
+    FOREIGN KEY (`User_id`)
+    REFERENCES `schema`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Permission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Permission` (
+  `idPermission` INT NOT NULL AUTO_INCREMENT,
+  `action` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idPermission`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Grant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Grant` (
+  `Role_id` INT NOT NULL,
+  `Permission_id` INT NOT NULL,
+  PRIMARY KEY (`Role_id`, `Permission_id`),
+  INDEX `Permission_id_idx` (`Permission_id` ASC) VISIBLE,
+  CONSTRAINT `Grant_Role_id`
+    FOREIGN KEY (`Role_id`)
+    REFERENCES `schema`.`Role` (`idRole`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Permission_id`
+    FOREIGN KEY (`Permission_id`)
+    REFERENCES `schema`.`Permission` (`idPermission`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Task`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Task` (
+  `idTask` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(256) NULL,
+  `deadline` DATETIME NULL,
+  `creation_date` DATETIME NOT NULL,
+  PRIMARY KEY (`idTask`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Assignment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Assignment` (
+  `idAssignment` INT NOT NULL AUTO_INCREMENT,
+  `date_time` DATETIME NULL,
+  `Collaborator_id` INT NOT NULL,
+  `Task_id` INT NOT NULL,
+  PRIMARY KEY (`idAssignment`),
+  INDEX `Collaborator_id_idx` (`Collaborator_id` ASC) VISIBLE,
+  INDEX `Task_id_idx` (`Task_id` ASC) VISIBLE,
+  CONSTRAINT `Collaborator_id`
+    FOREIGN KEY (`Collaborator_id`)
+    REFERENCES `schema`.`Collaborators` (`idCollaborators`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Task_id`
+    FOREIGN KEY (`Task_id`)
+    REFERENCES `schema`.`Task` (`idTask`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Action`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Action` (
+  `Task_id` INT NOT NULL,
+  `Assignment_id` INT NOT NULL,
+  `Collaborator_id` INT NOT NULL,
+  `date_time` DATETIME NULL,
+  PRIMARY KEY (`Collaborator_id`, `Assignment_id`, `Task_id`),
+  INDEX `Assignment_id_idx` (`Assignment_id` ASC) VISIBLE,
+  INDEX `Collaborator_id_idx` (`Collaborator_id` ASC) VISIBLE,
+  INDEX `Task_id_idx` (`Task_id` ASC) VISIBLE,
+  CONSTRAINT `Action_Task_id`
+    FOREIGN KEY (`Task_id`)
+    REFERENCES `schema`.`Task` (`idTask`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Assignment_id`
+    FOREIGN KEY (`Assignment_id`)
+    REFERENCES `schema`.`Assignment` (`idAssignment`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Action_Collaborator_id`
+    FOREIGN KEY (`Collaborator_id`)
+    REFERENCES `schema`.`Collaborators` (`idCollaborators`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Tag`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Tag` (
+  `idTag` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(256) NULL,
+  PRIMARY KEY (`idTag`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `schema`.`Label`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `schema`.`Label` (
+  `Task_id` INT NOT NULL,
+  `Tag_id` INT NOT NULL,
+  PRIMARY KEY (`Task_id`, `Tag_id`),
+  INDEX `Tag_id_idx` (`Tag_id` ASC) VISIBLE,
+  CONSTRAINT `Label_Task_id`
+    FOREIGN KEY (`Task_id`)
+    REFERENCES `schema`.`Task` (`idTask`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Tag_id`
+    FOREIGN KEY (`Tag_id`)
+    REFERENCES `schema`.`Tag` (`idTag`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+
+
+
+
+
+-- Початок транзакції
+START TRANSACTION;
+
+-- Додавання даних в таблицю `schema`.`Permission`
+INSERT INTO `schema`.`Permission` (`action`)
+VALUES
+    -- collaborator
+    ('EditUser'),
+    ('CreateTask'),
+    ('EditTask'),
+    ('DeleteTask'),
+    ('FilterTask'),
+    ('CommentTask'),
+    -- teamlead
+    ('CreateProject'),
+    ('DeleteProject'),
+    ('CreateSprint'),
+    ('FinishSprint'),
+    ('AddMember'),
+    ('DeleteMember'),
+    -- admin
+    ('UserSupport'),
+    ('BanUser'),
+    ('UnBanUser');
+
+
+-- Додавання даних в таблицю `schema`.`Role`
+INSERT INTO `schema`.`Role` (`name`, `description`)
+VALUES
+    ('Administrator', 'Administrator role'),
+    ('Team-lead', 'Team-lead role'),
+    ('Collaborator', 'Developer role');
+
+-- Додавання даних в таблицю `schema`.`Grant`
+INSERT INTO `schema`.`Grant` (`Role_id`, `Permission_id`)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (1, 4),
+    (1, 5),
+    (1, 6),
+    (1, 7),
+    (1, 8),
+    (1, 9),
+    (1, 10),
+    (1, 11),
+    (1, 12),
+    (1, 13),
+    (1, 14),
+    (1, 15),
+
+    (2, 1),
+    (2, 2),
+    (2, 3),
+    (2, 4),
+    (2, 5),
+    (2, 6),
+    (2, 7),
+    (2, 8),
+    (2, 9),
+    (2, 10),
+    (2, 11),
+    (2, 12),
+
+    (3, 1),
+    (3, 2),
+    (3, 3),
+    (3, 4),
+    (3, 5),
+    (3, 6);
+
+
+-- Додавання даних в таблицю `schema`.`Project`
+INSERT INTO `schema`.`Project` (`name`, `description`)
+VALUES
+    ('Project 1', 'Description for Project 1'),
+    ('Project 2', 'Description for Project 2');
+
+-- Додавання даних в таблицю `schema`.`Team`
+INSERT INTO `schema`.`Team` (`idTeam`, `name`, `description`, `Project_id`)
+VALUES
+    (1, 'Team 1', 'description1', 1),
+    (2, 'Team 2', 'description2', 2);
+
+-- Додавання даних в таблицю `schema`.`User`
+INSERT INTO `schema`.`User` (`name`, `email`, `password`, `photo`, `is_banned`)
+VALUES
+    ('User1', 'user1@example.com', 'password1', 'link.com/photo', 0),
+    ('User2', 'user2@example.com', 'password2', 'link.com/photo', 0);
+
+-- Додавання даних в таблицю `schema`.`Collaborators`
+INSERT INTO `schema`.`Collaborators` (`Role_id`, `User_id`, `Team_id`)
+VALUES
+    (1, 1, 1),  -- Admin User 1 in Team 1
+    (2, 2, 2);  -- Manager User 2 in Team 2
+
+
+
+-- Додавання даних в таблицю `schema`.`Task`
+INSERT INTO `schema`.`Task` (`name`, `description`, `deadline`, `creation_date`)
+VALUES
+    ('Task 1', 'Description for Task 1', '2023-10-31 12:00:00', NOW()),
+    ('Task 2', 'Description for Task 2', '2023-11-15 14:30:00', NOW()),
+    ('Task 3', 'Description for Task 3', '2023-11-20 10:00:00', NOW());
+
+-- Додавання тестових даних в таблицю `schema.Assignment`
+INSERT INTO `schema`.`Assignment` (`date_time`, `Collaborator_id`, `Task_id`)
+VALUES
+    ('2023-10-18 11:30:00', 1, 1),
+    ('2023-10-19 14:15:00', 2, 2),
+    ('2023-10-20 09:45:00', 1, 3);
+
+
+COMMIT;
+
+
+</code></pre></div><h2 id="restfull-сервіс-для-управління-даними"><a href="#restfull-сервіс-для-управління-даними" class="header-anchor">#</a> RESTfull сервіс для управління даними</h2> <h3 id="створення-серверу"><a href="#створення-серверу" class="header-anchor">#</a> Створення серверу</h3> <h4 id="app-js"><a href="#app-js" class="header-anchor">#</a> app.js</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;express&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> bodyParser <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;body-parser&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> projectRoutes <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./routes/projectRoutes&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">PORT</span> <span class="token operator">=</span> <span class="token number">3000</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&quot;/project&quot;</span><span class="token punctuation">,</span> projectRoutes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token string">&quot;Connected to server&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token constant">PORT</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server is running on port </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">PORT</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="зв-язок-з-базою-даних"><a href="#зв-язок-з-базою-даних" class="header-anchor">#</a> Зв'язок з базою даних</h3> <h4 id="db-js"><a href="#db-js" class="header-anchor">#</a> db.js</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token punctuation">{</span> Client <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;pg&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Client</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">user</span><span class="token operator">:</span> <span class="token string">&quot;postgres&quot;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">database</span><span class="token operator">:</span> <span class="token string">&quot;schema&quot;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">password</span><span class="token operator">:</span> <span class="token string">&quot;root&quot;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">port</span><span class="token operator">:</span> <span class="token number">5432</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+client
+  <span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;Connected to the database&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">&quot;Connection error&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">.</span>stack<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> client<span class="token punctuation">;</span>
+</code></pre></div><h3 id="контролер"><a href="#контролер" class="header-anchor">#</a> Контролер</h3> <h4 id="controller-js"><a href="#controller-js" class="header-anchor">#</a> controller.js</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> db <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../models/db&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">createProject</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> name<span class="token punctuation">,</span> description <span class="token punctuation">}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> project <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+      <span class="token string">&quot;INSERT INTO schema.project (name, description) VALUES ($1, $2) RETURNING *&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>name<span class="token punctuation">,</span> description<span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">getAllProjects</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> projects <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;SELECT * FROM schema.project&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>projects<span class="token punctuation">.</span>rows<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">getProjectById</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> id <span class="token operator">=</span> req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> project <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+      <span class="token string">&quot;SELECT * FROM schema.project WHERE idproject = $1&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>id<span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Record not found&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">updateProject</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> id <span class="token operator">=</span> req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> data <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>idproject<span class="token punctuation">)</span> <span class="token keyword">delete</span> data<span class="token punctuation">.</span>idproject<span class="token punctuation">;</span>
+
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> value<span class="token punctuation">]</span> <span class="token keyword">of</span> Object<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE schema.project SET </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> = $1 WHERE idproject = $2</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>value<span class="token punctuation">,</span> id<span class="token punctuation">]</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> project <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+      <span class="token string">&quot;SELECT * FROM schema.project WHERE idproject = $1&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>id<span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">deleteProject</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> id <span class="token operator">=</span> req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> project <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+      <span class="token string">&quot;SELECT * FROM schema.project WHERE idproject = $1&quot;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span>id<span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Record not found&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;DELETE FROM schema.project WHERE idproject = $1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>project<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="сервіси"><a href="#сервіси" class="header-anchor">#</a> Сервіси</h3> <h4 id="services-js"><a href="#services-js" class="header-anchor">#</a> Services.js</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> db <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../db&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">createRole</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> name<span class="token punctuation">,</span> description <span class="token punctuation">}</span> <span class="token operator">=</span> data<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>
+    <span class="token string">&quot;INSERT INTO schema.role (name, description) VALUES ($1, $2) RETURNING *&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>name<span class="token punctuation">,</span> description<span class="token punctuation">]</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">getAllRoles</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;SELECT * FROM schema.role&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">getRoleById</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;SELECT * FROM schema.role WHERE idrole = $1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+    id<span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>result<span class="token punctuation">.</span>rows<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Record not found&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">updateRole</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">id<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> keys <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> key <span class="token keyword">of</span> keys<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">UPDATE schema.role SET </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>key<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> = $1 WHERE idrole = $2</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+      data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      id<span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;SELECT * FROM schema.role WHERE idrole = $1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+    id<span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+exports<span class="token punctuation">.</span><span class="token function-variable function">deleteRole</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;SELECT * FROM schema.role WHERE idrole = $1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+    id<span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>result<span class="token punctuation">.</span>rows<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Record not found&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">&quot;DELETE FROM schema.role WHERE idrole = $1&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="маршрутизація"><a href="#маршрутизація" class="header-anchor">#</a> Маршрутизація</h3> <h4 id="routes-js"><a href="#routes-js" class="header-anchor">#</a> routes.js</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;express&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> projectController <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../controllers/projectController&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> router <span class="token operator">=</span> express<span class="token punctuation">.</span><span class="token function">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> projectController<span class="token punctuation">.</span>createProject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> projectController<span class="token punctuation">.</span>getAllProjects<span class="token punctuation">)</span><span class="token punctuation">;</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/:id&quot;</span><span class="token punctuation">,</span> projectController<span class="token punctuation">.</span>getProjectById<span class="token punctuation">)</span><span class="token punctuation">;</span>
+router<span class="token punctuation">.</span><span class="token function">patch</span><span class="token punctuation">(</span><span class="token string">&quot;/:id&quot;</span><span class="token punctuation">,</span> projectController<span class="token punctuation">.</span>updateProject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+router<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">&quot;/:id&quot;</span><span class="token punctuation">,</span> projectController<span class="token punctuation">.</span>deleteProject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> router<span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Останнє оновлення:</span> <span class="time">5/26/2024, 11:13:05 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/edu_db_labs/design/" class="prev">
+        Проектування інформаційного забезпечення
+      </a></span> <span class="next"><a href="/edu_db_labs/test/">
+        Тестування працездатності системи
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/edu_db_labs/assets/js/app.9d75754b.js" defer></script><script src="/edu_db_labs/assets/js/2.8c6916a2.js" defer></script><script src="/edu_db_labs/assets/js/1.cd4dfba0.js" defer></script><script src="/edu_db_labs/assets/js/37.dc7611b4.js" defer></script>
+  </body>
+</html>
