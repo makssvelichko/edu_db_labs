@@ -363,10 +363,10 @@ COMMIT;
 
 
 ```
-# RESTfull сервіс для управління даними
+## RESTfull сервіс для управління даними
 
-## Створення серверу
-### app.js
+### Створення серверу
+#### app.js
 ``` js
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -387,8 +387,8 @@ app.listen(PORT, () => {
 });
 ```
 
-## Зв'язок з базою даних
-### db.js
+### Зв'язок з базою даних
+#### db.js
 ``` js 
 const { Client } = require("pg");
 
@@ -408,8 +408,8 @@ client
 module.exports = client;
 ```
 
-## Контролер
-### controller.js
+### Контролер
+#### controller.js
 ``` js
 const db = require("../models/db");
 
@@ -493,8 +493,8 @@ exports.deleteProject = async (req, res) => {
 };
 ```
 
-## Сервіси
-### Services.js
+### Сервіси
+#### Services.js
 ``` js
 const db = require("../db");
 
@@ -544,8 +544,8 @@ exports.deleteRole = async (id) => {
 };
 ```
 
-## Маршрутизація
-### routes.js
+### Маршрутизація
+#### routes.js
 ``` js
 const express = require("express");
 const projectController = require("../controllers/projectController");
